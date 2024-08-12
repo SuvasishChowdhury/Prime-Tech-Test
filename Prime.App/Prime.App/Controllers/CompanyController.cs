@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Prime.App.Models;
 using Prime.App.Service;
 using System;
@@ -43,6 +44,20 @@ namespace Prime.App.Controllers
             {
                 return BadRequest();
             }
+        }
+
+        [HttpGet]
+        public ActionResult AddCompanyProp()
+        {
+            Company company = new Company();
+
+            return View(company);
+        }
+        [HttpPost]
+        public async Task<ActionResult> AddCompanyProp(Company company)
+        {
+            var result = await _service.addCompanyProp(company.PropName, company.PropValue);
+            return View(company);
         }
     }
 }

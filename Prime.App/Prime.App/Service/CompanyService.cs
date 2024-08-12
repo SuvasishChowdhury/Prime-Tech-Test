@@ -47,5 +47,21 @@ namespace Prime.App.Service
                     return result;
             }
         }
+
+        public async Task<int> addCompanyProp(string prop, string value)
+        {
+            var result = 0;
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(Baseurl);
+                var response = client.PostAsJsonAsync("api/AddProp/AddCompanyProperty", prop).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    return result = 1;
+                }
+                else
+                    return result;
+            }
+        }
     }
 }

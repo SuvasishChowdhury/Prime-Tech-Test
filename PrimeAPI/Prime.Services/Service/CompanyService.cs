@@ -36,24 +36,16 @@ namespace Prime.Services.Service
             _repo.Insert(company);
             return 1;
         }
+        public int AddCompanyProp(Company company)
+        {
+            _repo.Update(company);
+            return 1;
+        }
         public int UpdateCompany(Company company)
         {
             _repo.Update(company);
             return 1;
         }
 
-        public int AddProperty(Company com)
-        {
-            DataTable datatable = new DataTable();
-            datatable.Columns.Add("Col1");
-            datatable.Columns.Add("Col2");
-
-            DataRow row = datatable.NewRow();
-            row["Col1"] = "One";
-            row["Col2"] = "Two";
-            datatable.Rows.Add(row);
-
-            return 1;
-        }
     }
 }
