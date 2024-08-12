@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,30 +42,18 @@ namespace Prime.Services.Service
             return 1;
         }
 
-        private List<dictionary><string,>> LoadData(string sqlSelect)
+        public int AddProperty(Company com)
         {
-            var table = new List<dictionary>< string,>> ();
-            using (var ctx = db)
-            {
-                ctx.Database.Connection.Open();
-                using (var cmd = ctx.Database.Connection.CreateCommand())
-                {
-                    cmd.CommandText = sqlSelect;
-                    //foreach (var param in sqlParameters)
-                    //    cmd.Parameters.Add(param);
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            var row = new Dictionary<string,>();
-                            for (int i = 0; i < reader.FieldCount; i++)
-                                row[reader.GetName(i)] = reader[i];
-                            table.Add(row);
-                        }
-                    }
-                }
-            }
-            return table;
+            DataTable datatable = new DataTable();
+            datatable.Columns.Add("Col1");
+            datatable.Columns.Add("Col2");
+
+            DataRow row = datatable.NewRow();
+            row["Col1"] = "One";
+            row["Col2"] = "Two";
+            datatable.Rows.Add(row);
+
+            return 1;
         }
     }
 }
