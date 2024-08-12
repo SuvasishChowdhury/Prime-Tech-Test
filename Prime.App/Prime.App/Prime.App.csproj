@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>  
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <!--<ItemGroup>
+    <UpToDateCheckInput Remove="Views\Company\AddCompany.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Company\AddCompany.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Company\CompanyAdd.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Company\AddCompany.cshtml" />
+    <None Include="Views\Company\CompanyAdd.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Company\CompanyAdd.cshtml" />
+  </ItemGroup>-->
+
+</Project>
