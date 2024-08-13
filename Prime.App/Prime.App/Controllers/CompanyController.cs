@@ -25,9 +25,13 @@ namespace Prime.App.Controllers
 
 
         [HttpGet]
-        public ActionResult AddCompany()
+        public async Task<ActionResult> AddCompany(int id)
         {
             Company company = new Company();
+            if (id > 0)
+            {
+               company = await _service.getCompanyInformation(id);
+            }
 
             return View(company);
         }
@@ -38,7 +42,21 @@ namespace Prime.App.Controllers
             var result = await _service.addCompanies(company);
             if(result > 0)
             {
-                return Ok(result);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> DeleteCompany(int id)
+        {
+            var result = await _service.deleteCompanies(id);
+            if (result > 0)
+            {
+                return RedirectToAction("Index");
             }
             else
             {
@@ -56,7 +74,7 @@ namespace Prime.App.Controllers
         [HttpPost]
         public async Task<ActionResult> AddCompanyProp(Company company)
         {
-            var result = await _service.addCompanyProp(company.PropName, company.PropValue);
+            var result = await _service.addCompanyProp(company);
             return View(company);
         }
     }

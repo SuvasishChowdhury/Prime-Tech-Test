@@ -53,5 +53,22 @@ namespace Prime.Infrastructure
             entities.Remove(entity);
             context.SaveChanges();
         }
+        public void Delete(int id)
+        {
+            if (id == 0)
+            {
+                throw new ArgumentNullException("entity");
+            }
+            var entity = entities.Find(id);
+            if (entity == null)
+            {
+                throw new ArgumentNullException($"{id} is not a entity");
+            }
+            else
+            {
+                entities.Remove(entity);
+                context.SaveChanges();
+            }
+        }
     }
 }

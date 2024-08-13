@@ -32,29 +32,87 @@ namespace Prime.App.Service
             return compInfo;
         }
 
+        public async Task<Company> getCompanyInformation(int id)
+        {
+            Company compInfo = new Company();
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(Baseurl);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = client.GetAsync("api/Company/" + id).Result;
+                if (Res.IsSuccessStatusCode)
+                {
+                    var compResponse = Res.Content.ReadAsStringAsync().Result;
+                    compInfo = JsonConvert.DeserializeObject<Company>(compResponse);
+                }
+
+            }
+            return compInfo;
+        }
+
         public async Task<int> addCompanies(Company company)
         {
             var result = 0;
-            using (var client = new HttpClient())
+            if (company != null && company.ID != 0)
             {
-                client.BaseAddress = new Uri(Baseurl);
-                var response = client.PostAsJsonAsync("api/Company/AddCompany", company).Result;
-                if (response.IsSuccessStatusCode)
+
+                using (var client = new HttpClient())
                 {
-                    return result = 1;
+                    client.BaseAddress = new Uri(Baseurl);
+                    var response = client.PutAsJsonAsync("api/Company/" + company.ID, company).Result;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return result = 1;
+                    }
+                    else
+                        return result;
                 }
-                else
-                    return result;
+            }
+            else
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(Baseurl);
+                    var response = client.PostAsJsonAsync("api/Company/AddCompany", company).Result;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return result = 1;
+                    }
+                    else
+                        return result;
+                }
             }
         }
+        public async Task<int> deleteCompanies(int id)
+        {
+            var result = 0;
+            if (id != 0)
+            {
 
-        public async Task<int> addCompanyProp(string prop, string value)
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(Baseurl);
+                    var response = client.DeleteAsync("api/Company/" + id).Result;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return result = 1;
+                    }
+                    else
+                        return result;
+                }
+            }
+            return result;
+        }
+
+        public async Task<int> addCompanyProp(Company company)
         {
             var result = 0;
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(Baseurl);
-                var response = client.PostAsJsonAsync("api/AddProp/AddCompanyProperty", prop).Result;
+                var response = client.PostAsJsonAsync("api/AddProp/AddCompanyProperty", company).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     return result = 1;

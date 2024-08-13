@@ -54,6 +54,7 @@ namespace PrimeAPI.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            _service.DeleteCompany(id);
         }
     }
 }

@@ -47,5 +47,11 @@ namespace Prime.Services.Service
             return 1;
         }
 
+        public int DeleteCompany(int id)
+        {
+            _repo.Delete(id);
+            return 1;
+        }
+
     }
 }

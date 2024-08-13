@@ -19,10 +19,10 @@ namespace PrimeAPI.Controllers
         // POST api/<AddPropController>
         [HttpPost]
         [Route("AddCompanyProperty")]
-        public void Post(string prop)
+        public void Post(Company company)
         {
-            Company company = new Company();
-            company.AddProperty(prop, null);
+            company.AddProperty<DateTime>("BirthDate", DateTime.Now);
+            //company.AddProperty(prop, null);
             _service.AddCompanyProp(company);
         }
     }
