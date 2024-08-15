@@ -25,6 +25,7 @@ namespace Prime.Services.Service
             var xcompanies = _repo.GetAll();
             companies = xcompanies.Select(s=> new CompanyVM()
             {
+                ID = s.ID,
                 Name = s.Name,
                 Address = s.Address,
                 AdditionalPropertiesJson = JsonConvert.SerializeObject(s.AdditionalProperties, Formatting.Indented)
