@@ -23,6 +23,18 @@ namespace Prime.App.Controllers
             return View(compInfo);            
         }
 
+        public ActionResult CreateCompany()
+        {
+            Company company = new Company();
+            return View(company);
+        }
+        [HttpPost]
+        public async Task<ActionResult> CreateCompany(Company company, List<KeyValuePair<string, string>> AdditionalProperties)
+        {
+            company.AdditionalProperties = AdditionalProperties.ToDictionary(x => x.Key, x => (object)x.Value);
+            var result = await _service.addCompanies(company);
+            return View(result);
+        }
 
         [HttpGet]
         public async Task<ActionResult> AddCompany(int id)

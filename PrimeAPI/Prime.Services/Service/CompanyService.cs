@@ -1,4 +1,5 @@
-﻿using Prime.Entities;
+﻿using Newtonsoft.Json;
+using Prime.Entities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,18 +19,27 @@ namespace Prime.Services.Service
             _repo = repo;
         }
 
-        public List<Company> GetCompanies()
+        public List<CompanyVM> GetCompanies()
         {
-            List<Company> companies = new List<Company>();
+            List<CompanyVM> companies = new List<CompanyVM>();
             var xcompanies = _repo.GetAll();
-            companies = xcompanies.ToList();
+            companies = xcompanies.Select(s=> new CompanyVM()
+            {
+                Name = s.Name,
+                Address = s.Address,
+                AdditionalPropertiesJson = JsonConvert.SerializeObject(s.AdditionalProperties, Formatting.Indented)
+            }).ToList();
             return companies;
         }       
 
-        public Company GetCompanyInfo(int id)
+        public CompanyVM GetCompanyInfo(int id)
         {
             Company company = _repo.Get(id);
-            return company;
+            CompanyVM vm = new CompanyVM();
+            vm.Name = company.Name;
+            vm.Address = company.Address;
+            vm.AdditionalPropertiesJson = JsonConvert.SerializeObject(company.AdditionalProperties, Formatting.Indented);
+            return vm;
         }
         public int AddCompany(Company company)
         {

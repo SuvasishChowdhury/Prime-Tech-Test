@@ -20,26 +20,36 @@ namespace PrimeAPI.Controllers
         // GET: api/<CompanyController>
         [HttpGet]
         [Route("GetAllCompanies")]
-        public IEnumerable<Company> Get()
+        public IEnumerable<CompanyVM> Get()
         {
-            List<Company> companies = _service.GetCompanies();
+            List<CompanyVM> companies = _service.GetCompanies();
 
             return companies;
         }
 
         // GET api/<CompanyController>/5
         [HttpGet("{id}")]
-        public Company Get(int id)
+        public CompanyVM Get(int id)
         {
-            Company com = _service.GetCompanyInfo(id);
+            CompanyVM com = _service.GetCompanyInfo(id);
             return com;
         }
 
         // POST api/<CompanyController>
+        //[HttpPost]
+        //[Route("AddCompany")]
+        //public void Post([FromBody] Company company)
+        //{
+        //    _service.AddCompany(company);
+        //}
         [HttpPost]
         [Route("AddCompany")]
-        public void Post([FromBody] Company company)
+        public void Post([FromBody] CompanyVM vm)
         {
+            Company company  = new Company();
+            company.Name = vm.Name;
+            company.Address = vm.Address;
+            company.AdditionalProperties = vm.AdditionalPropertiesJson;
             _service.AddCompany(company);
         }
 

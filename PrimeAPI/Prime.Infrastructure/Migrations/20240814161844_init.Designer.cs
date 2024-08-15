@@ -11,7 +11,7 @@ using Prime.Infrastructure;
 namespace Prime.Infrastructure.Migrations
 {
     [DbContext(typeof(PrimeDbContext))]
-    [Migration("20240812102030_init")]
+    [Migration("20240814161844_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -31,6 +31,9 @@ namespace Prime.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("AdditionalProperties")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
